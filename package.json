@@ -1,0 +1,32 @@
+{
+  "name": "simple-todolist",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@mdi/font": "7.0.96",
+    "core-js": "^3.37.1",
+    "lato-font": "^3.0.0",
+    "roboto-fontface": "^0.10.0",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0",
+    "vuetify": "^3.6.10"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.24.7",
+    "@types/node": "^18.19.39",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-vue": "^9.26.0",
+    "sass": "^1.77.6",
+    "typescript": "^5.5.2",
+    "unplugin-fonts": "^1.1.1",
+    "vite": "^4.5.3",
+    "vite-plugin-vuetify": "^1.0.2"
+  }
+}
