@@ -2,19 +2,20 @@
     <v-hover>
         <template #default="{ isHovering, props }">
             <v-row
-                class="todo ma-0 align-center rounded-xl mb-1 px-3 overflow-hidden"
+                class="todo ma-0 align-center rounded-xl mb-1 overflow-hidden"
                 style="cursor: pointer; position: relative;"
                 v-bind="props"
                 :class="{
                     'on-hover': isHovering,
                     'is-checked': todo.isChecked,
-                    'opacity-0': isDeleting
+                    'opacity-0': isDeleting,
+                    'is-adding-todo': customProps.isAddingTodo
                 }"
                 @click.prevent="toggleCheck"
             >
                 <v-col
                     cols="1"
-                    class="pa-1"
+                    class="py-1 me-3"
                 >
                     <v-checkbox
                         v-model="todo.isChecked"
@@ -24,14 +25,17 @@
                 </v-col>
 
                 <!-- 標題 -->
-                <v-col class="pa-1">
-                    <span class="todo-title">{{ todo.title }}</span>
+                <v-col class="py-1">
+                    <span
+                        class="todo-title text-h6"
+                        style="word-break: break-all;"
+                    >{{ todo.title }}</span>
                 </v-col>
 
                 <!-- 控制列 -->
                 <v-col
                     cols="auto"
-                    class="pa-1 ml-auto"
+                    class="py-1 ml-auto"
                 >
                     <Btn
                         :icon="todo.favorite ? 'mdi-star' : 'mdi-star-outline'"
@@ -54,15 +58,15 @@
                     style="position:absolute;top:0;bottom:0;right:0;"
                     class="control-panel overflow-hidden"
                     :style="{
-                        'width': isControlOpen ? '70%' : '0'
+                        'width': isControlOpen ? '50%' : '0'
                     }"
                     @click.stop
                 >
                     <v-row
-                        class="bg-primary rounded-xl ma-0 justify-space-between align-center px-5 fill-height"
+                        class="bg-primary rounded-xl ma-0 px-3 justify-end align-center fill-height"
                     >
                         <v-col
-                            cols="auot"
+                            cols="auto"
                             class="pa-1"
                         >
                             <Btn
@@ -75,11 +79,11 @@
                             />
                         </v-col>
                         <v-col
-                            cols="auot"
+                            cols="auto"
                             class="pa-1"
                         >
                             <Btn
-                                :icon="'mdi-chevron-right'"
+                                :icon="'mdi-close'"
                                 :btn-size="'default'"
                                 :icon-size="'24'"
                                 :icon-color="'white'"
@@ -101,16 +105,28 @@ import Btn from './Btn.vue';
 
 const customProps = defineProps<{
     todo: Todo,
+    isAddingTodo?: boolean
 }>();
 
 const todo = ref(customProps.todo);
 const isDeleting = ref(false);
 const isControlOpen = ref(false);
 
-const emit = defineEmits(['delete:todo']);
+const emit = defineEmits([
+    'delete:todo',
+    'finish:todo',
+]);
 
 function toggleCheck() {
     todo.value.isChecked = !todo.value.isChecked;
+
+    if (todo.value.isChecked) {
+        isControlOpen.value = false;
+
+        setTimeout(() => {
+            emit('finish:todo');
+        }, 400);
+    }
 }
 
 function toggleFavorite() {
@@ -131,6 +147,7 @@ function deleteTodo() {
         emit('delete:todo');
     }, 400);
 }
+
 </script>
 <style lang="scss" scoped>
 .on-hover {
@@ -141,8 +158,11 @@ function deleteTodo() {
     transition: all 0.2s ease;
 }
 
+.is-adding-todo {
+    background-color: rgba(var(--v-theme-primary), 0.3);
+}
+
 .todo-title {
-    color: rgb(var(--v-theme-warning));
     position: relative;
     transition: all 0.2s ease;
 
