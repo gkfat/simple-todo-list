@@ -4,6 +4,7 @@ import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
+import colors from 'vuetify/lib/util/colors';
 
 export const vuetify = createVuetify({
     components: {
@@ -17,6 +18,8 @@ export const vuetify = createVuetify({
                 colors: {
                     primary: '#808873',
                     secondary: '#C6BAAC',
+                    grey: colors.grey.lighten1,
+                    darkgrey: colors.grey.darken2,
                     warning: '#975557',
                     background: '#FFFBFC',
                 },
@@ -26,6 +29,8 @@ export const vuetify = createVuetify({
                 colors: {
                     primary: '#C4CBDB',
                     secondary: '#FCECDF',
+                    grey: colors.grey.lighten1,
+                    darkgrey: colors.grey.darken2,
                     warning: '#975557',
                     background: '#212020',
                 },

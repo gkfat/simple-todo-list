@@ -1,4 +1,4 @@
-import 'lato-font/css/lato-font.css';
+import '@/assets/style.scss';
 
 import { createApp } from 'vue';
 

@@ -24,13 +24,6 @@ export default defineConfig(({ mode }) => ({
             },
         }),
     ],
-    css: {
-        preprocessorOptions: {
-            css: {
-                additionalData: '@import "lato-font/css/lato-font.css";',
-            },
-        },
-    },
     resolve: {
         alias: [
             { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
